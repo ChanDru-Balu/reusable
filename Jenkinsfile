@@ -18,9 +18,17 @@ pipeline{
         }
         stage('Build Docker Image'){
             steps{
-                script{
-                    sh '/usr/local/bin/docker build -t reusable-image .'
-                } 
+                // script{
+                //     sh '/usr/local/bin/docker build -t reusable-image .'
+                // } 
+                   // Get the current working directory
+                    def currentDir = pwd()
+
+                    // Define the path to the Dockerfile relative to the Jenkinsfile
+                    def dockerfilePath = "${currentDir}/Dockerfile"
+
+                    // Build Docker image
+                    bat "docker build -t reusable-image -f ${dockerfilePath} ."
             }
         }
     
