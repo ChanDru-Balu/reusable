@@ -16,13 +16,13 @@ pipeline{
                 git 'https://github.com/ChanDru-Balu/reusable'
             }
         }
-        // stage('Build Docker Image'){
-        //     steps{
-        //         script{
-        //             sh '/usr/local/bin/docker build -t reusable-image .'
-        //         } 
-        //     }
-        // }
+        stage('Build Docker Image'){
+            steps{
+                script{
+                    sh '/usr/local/bin/docker build -t reusable-image .'
+                } 
+            }
+        }
     
         // stage('Run Docker Container'){
         //     steps{
