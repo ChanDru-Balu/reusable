@@ -1,7 +1,7 @@
 pipeline{
     agent any
     tools {
-        dockerTool 'ReusableDockerTool'
+        dockerTool 'ReusableDocker'
     }
     stages{
         stage('Clone Repository'){
