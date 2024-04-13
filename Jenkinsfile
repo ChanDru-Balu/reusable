@@ -18,7 +18,7 @@ pipeline{
         }
         stage('Build Docker Image'){
             steps{
-                // script{
+                script{
                 //     sh '/usr/local/bin/docker build -t reusable-image .'
                 // } 
                    // Get the current working directory
