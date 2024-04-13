@@ -24,7 +24,7 @@ pipeline{
                     dir('angular-project') {
                         // Build Angular project for production
                         bat "npm install"
-                        bat "npm run build -- --prod"
+                        bat "npm run build --prod"
                     }
                 }
             }
