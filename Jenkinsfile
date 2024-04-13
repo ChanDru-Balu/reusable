@@ -33,12 +33,15 @@ pipeline{
             }
         }
     
-        // stage('Run Docker Container'){
-        //     steps{
-        //         script {
-        //             sh '/usr/local/bin/docker run -p 8090:80 reusable-image .'
-        //         }
-        //     }
-        // }
+        stage('Run Docker Container'){
+            steps{
+                script {
+                    // sh '/usr/local/bin/docker run -p 8090:80 reusable-image .'
+
+            // Run Docker container
+            bat "docker run -p 8090:80 -d --name my-container reusable-image"
+                }
+            }
+        }
     }
 }
