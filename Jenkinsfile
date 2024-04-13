@@ -16,6 +16,20 @@ pipeline{
                 git 'https://github.com/ChanDru-Balu/reusable'
             }
         }
+
+        stage('Build Angular Production') {
+            steps {
+                script {
+                    // Navigate to Angular project directory
+                    dir('angular-project') {
+                        // Build Angular project for production
+                        bat "npm install"
+                        bat "npm run build -- --prod"
+                    }
+                }
+            }
+        }
+
         stage('Build Docker Image'){
             steps{
                 script{
@@ -43,5 +57,35 @@ pipeline{
                 }
             }
         }
+
+        //  stage('Deploy to GitHub Pages') {
+        //     steps {
+        //         script {
+        //             // Remove existing 'gh-pages' directory if it exists
+        //             bat "rmdir /s /q gh-pages"
+
+        //             // Copy website files from Docker container to 'gh-pages' directory
+        //             bat "docker cp reusable-container-1:/path/to/website /workdir/gh-pages"
+
+        //             // Navigate to the 'gh-pages' directory
+        //             dir('gh-pages') {
+        //                 // Initialize Git repository
+        //                 bat "git init"
+                        
+        //                 // Add all files
+        //                 bat "git add ."
+                        
+        //                 // Commit changes
+        //                 bat "git commit -m 'Deploy to GitHub Pages'"
+                        
+        //                 // Add remote repository
+        //                 bat "git remote add origin https://github.com/ChanDru-Balu/reusable"
+                        
+        //                 // Push to the 'gh-pages' branch
+        //                 bat "git push -u origin master --force"
+        //             }
+        //         }
+        //     }
+        // }
     }
 }
