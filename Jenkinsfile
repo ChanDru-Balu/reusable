@@ -1,5 +1,5 @@
 pipeline{
-    agent { docker { image 'node:latest' } }
+    agent any
        tools {
         // Define the Docker tool in the 'tools' section
         // This assumes 'myDockerTool' is configured in Jenkins
