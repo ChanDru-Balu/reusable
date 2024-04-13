@@ -1,12 +1,15 @@
 pipeline{
     agent any
-    tools {
-         environment {
-        // Define the Docker tool name and version
-        dockerTool = 'myDockerTool'
+       tools {
+        // Define the Docker tool in the 'tools' section
+        // This assumes 'myDockerTool' is configured in Jenkins
+        dockerTool 'myDockerTool'
+    }
+    environment {
+        // Define environment variables if needed
         dockerImage = ''
     }
-    }
+
     stages{
         stage('Clone Repository'){
             steps{
