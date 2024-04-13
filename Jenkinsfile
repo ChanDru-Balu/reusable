@@ -1,7 +1,11 @@
 pipeline{
     agent any
     tools {
-        dockerTool 'ReusableDocker'
+         environment {
+        // Define the Docker tool name and version
+        dockerTool = 'myDockerTool'
+        dockerImage = ''
+    }
     }
     stages{
         stage('Clone Repository'){
