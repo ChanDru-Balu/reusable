@@ -20,7 +20,7 @@ pipeline{
             steps{
                 script{
                 //     sh '/usr/local/bin/docker build -t reusable-image .'
-                // } 
+
                    // Get the current working directory
                     def currentDir = pwd()
 
@@ -29,6 +29,7 @@ pipeline{
 
                     // Build Docker image
                     bat "docker build -t reusable-image -f ${dockerfilePath} ."
+                } 
             }
         }
     
