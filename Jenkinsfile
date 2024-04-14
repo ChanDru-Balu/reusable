@@ -75,14 +75,15 @@ pipeline{
                     // Check if 'gh-pages' branch exists, if not create it and switch
                 bat "git rev-parse --verify gh-pages || git checkout -b gh-pages"
                 // Initialize Git repository
-                bat "git init"
+                // bat "git init"
 
-
-                // Add all files
-                bat "git add ."
+                def currentBranch = bat(script: "git rev-parse --abbrev-ref HEAD", returnStdout: true).trim()
+                echo "Current branch is: ${currentBranch}"
+                // // Add all files
+                // bat "git add ."
                 
-                // Commit changes
-                bat 'git commit -m "Deploy to GitHub Pages"'
+                // // Commit changes
+                // bat 'git commit -m "Deploy to GitHub Pages"'
 
                 // // Configure Git user name and email
                 // bat "git config --global user.email 'prochandru@gmail.com'"
