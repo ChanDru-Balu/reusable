@@ -58,34 +58,34 @@ pipeline{
             }
         }
 
-        //  stage('Deploy to GitHub Pages') {
-        //     steps {
-        //         script {
-        //             // Remove existing 'gh-pages' directory if it exists
-        //             bat "rmdir /s /q gh-pages"
+         stage('Deploy to GitHub Pages') {
+            steps {
+                script {
+                    // Remove existing 'gh-pages' directory if it exists
+                    bat "rmdir /s /q gh-pages"
 
-        //             // Copy website files from Docker container to 'gh-pages' directory
-        //             bat "docker cp reusable-container-1:/path/to/website /workdir/gh-pages"
+                    // Copy website files from Docker container to 'gh-pages' directory
+                    bat "docker cp reusable-container:/path/to/website /workdir/gh-pages"
 
-        //             // Navigate to the 'gh-pages' directory
-        //             dir('gh-pages') {
-        //                 // Initialize Git repository
-        //                 bat "git init"
+                    // Navigate to the 'gh-pages' directory
+                    dir('gh-pages') {
+                        // Initialize Git repository
+                        bat "git init"
                         
-        //                 // Add all files
-        //                 bat "git add ."
+                        // Add all files
+                        bat "git add ."
                         
-        //                 // Commit changes
-        //                 bat "git commit -m 'Deploy to GitHub Pages'"
+                        // Commit changes
+                        bat "git commit -m 'Deploy to GitHub Pages'"
                         
-        //                 // Add remote repository
-        //                 bat "git remote add origin https://github.com/ChanDru-Balu/reusable"
+                        // Add remote repository
+                        bat "git remote add origin https://github.com/ChanDru-Balu/reusable"
                         
-        //                 // Push to the 'gh-pages' branch
-        //                 bat "git push -u origin master --force"
-        //             }
-        //         }
-        //     }
-        // }
+                        // Push to the 'gh-pages' branch
+                        bat "git push -u origin master --force"
+                    }
+                }
+            }
+        }
     }
 }
