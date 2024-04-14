@@ -7,7 +7,7 @@ pipeline{
     }
     environment {
         // Define environment variables if needed
-        dockerImage = ''
+        dockerImage = 'reusable-image'
     }
 
     stages{
@@ -61,11 +61,13 @@ pipeline{
          stage('Deploy to GitHub Pages') {
             steps {
                 script {
-                    // Remove existing 'gh-pages' directory if it exists
-                    bat "rmdir /s /q gh-pages"
+                       // Check if 'gh-pages' directory exists, if not create it
+                    if (!fileExists('gh-pages')) {
+                        bat "mkdir gh-pages"
+                    }
 
                     // Copy website files from Docker container to 'gh-pages' directory
-                    bat "docker cp reusable-container:/path/to/website /workdir/gh-pages"
+                    bat "docker cp reusable-container:/path/to/website ./gh-pages"
 
                     // Navigate to the 'gh-pages' directory
                     dir('gh-pages') {
