@@ -86,7 +86,7 @@ pipeline{
                         bat 'git commit -m "Deploy to GitHub Pages"'
                         
                         // // Add remote repository
-                        // bat "git remote add origin https://github.com/ChanDru-Balu/reusable"
+                        bat "git remote add origin https://github.com/ChanDru-Balu/reusable"
                         
                         // // Push to the 'gh-pages' branch
                         // bat "git push -u origin master --force"
