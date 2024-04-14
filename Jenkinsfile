@@ -58,7 +58,7 @@ pipeline{
             }
         }
 
-      stage('Deploy to GitHub Pages') {
+        stage('Deploy to GitHub Pages') {
     steps {
         script {
             // Check if 'gh-pages' directory exists, if not create it
@@ -72,31 +72,32 @@ pipeline{
             // Navigate to the 'gh-pages' directory
             dir('gh-pages') {
 
-                    // Check if 'gh-pages' branch exists, if not create it and switch
+                // Check if 'gh-pages' branch exists, if not create it and switch
                 bat "git rev-parse --verify gh-pages || git checkout -b gh-pages"
-                // Initialize Git repository
-                // bat "git init"
 
-                def currentBranch = bat(script: "git rev-parse --abbrev-ref HEAD", returnStdout: true).trim()
-                echo "Current branch is: ${currentBranch}"
-                // // Add all files
+                // Add all files if there are changes
                 bat "git add ."
                 
-                // // Commit changes
-                bat 'git commit -m "Deploy to GitHub Pages"'
+                // Check if there are changes to commit
+                def gitStatus = bat(script: 'git status --porcelain', returnStdout: true).trim()
+                if (gitStatus) {
+                    // Commit changes
+                    bat 'git commit -m "Deploy to GitHub Pages"'
 
-                // Configure Git user name and email
-                bat "git config --global user.email 'prochandru@gmail.com'"
-                bat "git config --global user.name 'ChanDru-Balu'"
-                
-              
-                
-                // // Push the 'gh-pages' branch to remote repository
-                bat "git push -u origin gh-pages"
+                    // Configure Git user name and email
+                    bat "git config --global user.email 'prochandru@gmail.com'"
+                    bat "git config --global user.name 'ChanDru-Balu'"
+
+                    // Push the 'gh-pages' branch to remote repository
+                    bat "git push -u origin gh-pages"
+                } else {
+                    echo "No changes to commit."
+                }
             }
         }
     }
 }
+
 
     }
 }
