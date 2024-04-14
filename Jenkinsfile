@@ -62,9 +62,9 @@ pipeline{
             steps {
                 script {
                     // Check if 'gh-pages' directory exists, if not create it
-                    if (!fileExists('gh-pages')) {
-                        bat "mkdir gh-pages"
-                    }
+                    // if (!fileExists('gh-pages')) {
+                    //     bat "mkdir gh-pages"
+                    // }
 
                     // Copy website files from Docker container to 'gh-pages' directory
                     bat "docker cp reusable-container:/usr/share/nginx/html ./gh-pages"
@@ -78,15 +78,15 @@ pipeline{
                         bat "git add ."
 
                         // Check if there are changes to commit
-                        def gitStatus = bat(script: 'git status --porcelain', returnStdout: true).trim()
+                        // def gitStatus = bat(script: 'git status --porcelain', returnStdout: true).trim()
                         
                         // Echo the Git Status without the directory path
-                        echo "Git Status:"
-                        echo gitStatus
+                        // echo "Git Status:"
+                        // echo gitStatus
 
 
             
-                        if (gitStatus) {
+                        // if (gitStatus) {
                             // Commit changes
                             bat 'git commit -m "Deploy to GitHub Pages2"'
 
@@ -100,9 +100,9 @@ pipeline{
 
                             // Push the 'gh-pages' branch to remote repository
                             bat "git push -u origin master"
-                        } else {
-                            echo "No changes to commit."
-                        }
+                        // } else {
+                        //     echo "No changes to commit."
+                        // }
                     }
 
                 }
