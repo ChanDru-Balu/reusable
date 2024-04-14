@@ -85,9 +85,9 @@ pipeline{
                 // // Commit changes
                 bat 'git commit -m "Deploy to GitHub Pages"'
 
-                // // Configure Git user name and email
-                // bat "git config --global user.email 'prochandru@gmail.com'"
-                // bat "git config --global user.name 'ChanDru-Balu'"
+                // Configure Git user name and email
+                bat "git config --global user.email 'prochandru@gmail.com'"
+                bat "git config --global user.name 'ChanDru-Balu'"
                 
               
                 
