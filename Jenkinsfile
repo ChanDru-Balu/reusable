@@ -59,52 +59,50 @@ pipeline{
         }
 
         stage('Deploy to GitHub Pages') {
-    steps {
-        script {
-            // Check if 'gh-pages' directory exists, if not create it
-            if (!fileExists('gh-pages')) {
-                bat "mkdir gh-pages"
+            steps {
+                script {
+                    // Check if 'gh-pages' directory exists, if not create it
+                    if (!fileExists('gh-pages')) {
+                        bat "mkdir gh-pages"
+                    }
+
+                    // Copy website files from Docker container to 'gh-pages' directory
+                    bat "docker cp reusable-container:/usr/share/nginx/html ./gh-pages"
+
+                    // Navigate to the 'gh-pages' directory
+                    dir('gh-pages') {
+                        // Check if 'gh-pages' branch exists, if not create it and switch
+                        bat "git rev-parse --verify gh-pages || git checkout -b gh-pages"
+
+                        // Add all files if there are changes
+                        bat "git add ."
+
+                        // Check if there are changes to commit
+                        def gitStatus = bat(script: 'git status --porcelain', returnStdout: true).trim()
+                        
+                        // Echo the Git Status without the directory path
+                        echo "Git Status:"
+                        echo gitStatus
+
+
+            
+                        if (gitStatus) {
+                            // Commit changes
+                            bat 'git commit -m "Deploy to GitHub Pages2"'
+
+                            // Configure Git user name and email
+                            bat "git config --global user.email 'prochandru@gmail.com'"
+                            bat "git config --global user.name 'ChanDru-Balu'"
+
+                            // Push the 'gh-pages' branch to remote repository
+                            bat "git push -u origin gh-pages"
+                        } else {
+                            echo "No changes to commit."
+                        }
+                    }
+
+                }
             }
-
-            // Copy website files from Docker container to 'gh-pages' directory
-            bat "docker cp reusable-container:/usr/share/nginx/html ./gh-pages"
-
-            // Navigate to the 'gh-pages' directory
-        dir('gh-pages') {
-    // Check if 'gh-pages' branch exists, if not create it and switch
-    bat "git rev-parse --verify gh-pages || git checkout -b gh-pages"
-
-    // Add all files if there are changes
-    bat "git add ."
-
-    // Check if there are changes to commit
-    def gitStatus = bat(script: 'git status --porcelain', returnStdout: true).trim()
-    
-    // Echo the Git Status without the directory path
-    echo "Git Status:"
-    echo gitStatus
-
-
-    
-    if (gitStatus) {
-        // Commit changes
-        bat 'git commit -m "Deploy to GitHub Pages2"'
-
-        // Configure Git user name and email
-        bat "git config --global user.email 'prochandru@gmail.com'"
-        bat "git config --global user.name 'ChanDru-Balu'"
-
-        // Push the 'gh-pages' branch to remote repository
-        bat "git push -u origin gh-pages"
-    } else {
-        echo "No changes to commit."
-    }
-}
-
         }
-    }
-}
-
-
     }
 }
