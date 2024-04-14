@@ -102,7 +102,3 @@ pipeline{
         }
     }
 }
-
-def fileExists(path) {
-    return file(path).exists()
-}
