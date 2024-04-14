@@ -92,7 +92,7 @@ pipeline{
               
                 
                 // // Push the 'gh-pages' branch to remote repository
-                bat "git push -u origin ${currentBranch}"
+                bat "git push -u origin gh-pages"
             }
         }
     }
