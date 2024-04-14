@@ -72,7 +72,7 @@ pipeline{
                     // Navigate to the 'gh-pages' directory
                     dir('gh-pages') {
                         // Check if 'gh-pages' branch exists, if not create it and switch
-                        bat "git rev-parse --verify gh-pages || git checkout -b gh-pages"
+                        // bat "git rev-parse --verify gh-pages || git checkout -b gh-pages"
 
                         // Add all files if there are changes
                         bat "git add ."
@@ -94,8 +94,12 @@ pipeline{
                             bat "git config --global user.email 'prochandru@gmail.com'"
                             bat "git config --global user.name 'ChanDru-Balu'"
 
+                            bat "git branch -M main"
+                            bat "git remote add origin https://github.com/ChanDru-Balu/reusableWebsite.git"
+
+
                             // Push the 'gh-pages' branch to remote repository
-                            bat "git push -u origin gh-pages"
+                            bat "git push -u origin master"
                         } else {
                             echo "No changes to commit."
                         }
