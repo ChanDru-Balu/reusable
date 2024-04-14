@@ -76,17 +76,16 @@ pipeline{
                         
                         // Add all files
                         bat "git add ."
-
-                        // Configure Git user name and email
-                        bat "git config --global user.email 'prochandru@gmail.com'"
-                        bat "git config --global user.name 'ChanDru-Balu'"
-
                         
                         // Commit changes
                         bat 'git commit -m "Deploy to GitHub Pages"'
+
+                         // Configure Git user name and email
+                        bat "git config --global user.email 'prochandru@gmail.com'"
+                        bat "git config --global user.name 'ChanDru-Balu'"
                         
                         // // Add remote repository
-                        bat "git remote add origin https://github.com/ChanDru-Balu/reusable"
+                        // bat "git remote add origin https://github.com/ChanDru-Balu/reusable"
                         
                         // // Push to the 'gh-pages' branch
                         // bat "git push -u origin master --force"
@@ -102,4 +101,8 @@ pipeline{
             }
         }
     }
+}
+
+def fileExists(path) {
+    return file(path).exists()
 }
