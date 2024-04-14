@@ -17,18 +17,18 @@ pipeline{
             }
         }
 
-        stage('Build Angular Production') {
-            steps {
-                script {
-                    // Navigate to Angular project directory
-                    dir('angular-project') {
-                        // Build Angular project for production
-                        bat "npm install"
-                        bat "npm run build --prod"
-                    }
-                }
-            }
-        }
+        // stage('Build Angular Production') {
+        //     steps {
+        //         script {
+        //             // Navigate to Angular project directory
+        //             dir('angular-project') {
+        //                 // Build Angular project for production
+        //                 bat "npm install"
+        //                 bat "npm run build --prod"
+        //             }
+        //         }
+        //     }
+        // }
 
         stage('Build Docker Image'){
             steps{
