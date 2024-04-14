@@ -74,6 +74,8 @@ pipeline{
                 // Initialize Git repository
                 bat "git init"
                 
+                bat "git rev-parse --verify gh-pages"
+                
                 // Add all files
                 bat "git add ."
                 
