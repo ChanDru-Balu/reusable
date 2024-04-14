@@ -84,8 +84,8 @@ pipeline{
                 bat "git config --global user.email 'prochandru@gmail.com'"
                 bat "git config --global user.name 'ChanDru-Balu'"
                 
-                // Switch to 'gh-pages' branch
-                bat "git checkout -b gh-pages"
+                  // Check if 'gh-pages' branch exists, if not create it and switch
+                bat "git rev-parse --verify gh-pages || git checkout -b gh-pages
                 
                 // Push the 'gh-pages' branch to remote repository
                 bat "git push -u origin gh-pages"
