@@ -78,7 +78,7 @@ pipeline{
                         bat "git add ."
                         
                         // Commit changes
-                        bat "git commit -m 'Deploy to GitHub Pages'"
+                        bat 'git commit -m "Deploy to GitHub Pages"'
                         
                         // Add remote repository
                         bat "git remote add origin https://github.com/ChanDru-Balu/reusable"
