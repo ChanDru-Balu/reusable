@@ -58,47 +58,41 @@ pipeline{
             }
         }
 
-         stage('Deploy to GitHub Pages') {
-            steps {
-                script {
-                       // Check if 'gh-pages' directory exists, if not create it
-                    if (!fileExists('gh-pages')) {
-                        bat "mkdir gh-pages"
-                    }
+      stage('Deploy to GitHub Pages') {
+    steps {
+        script {
+            // Check if 'gh-pages' directory exists, if not create it
+            if (!fileExists('gh-pages')) {
+                bat "mkdir gh-pages"
+            }
 
-                    // Copy website files from Docker container to 'gh-pages' directory
-                    bat "docker cp reusable-container:/usr/share/nginx/html ./gh-pages"
+            // Copy website files from Docker container to 'gh-pages' directory
+            bat "docker cp reusable-container:/usr/share/nginx/html ./gh-pages"
 
-                    // Navigate to the 'gh-pages' directory
-                    dir('gh-pages') {
-                        // Initialize Git repository
-                        bat "git init"
-                        
-                        // Add all files
-                        bat "git add ."
-                        
-                        // Commit changes
-                        bat 'git commit -m "Deploy to GitHub Pages"'
+            // Navigate to the 'gh-pages' directory
+            dir('gh-pages') {
+                // Initialize Git repository
+                bat "git init"
+                
+                // Add all files
+                bat "git add ."
+                
+                // Commit changes
+                bat 'git commit -m "Deploy to GitHub Pages"'
 
-                         // Configure Git user name and email
-                        bat "git config --global user.email 'prochandru@gmail.com'"
-                        bat "git config --global user.name 'ChanDru-Balu'"
-                        
-                        // // Add remote repository
-                        // bat "git remote add origin https://github.com/ChanDru-Balu/reusable"
-                        
-                        // // Push to the 'gh-pages' branch
-                        // bat "git push -u origin master --force"
-
-                        // Create and switch to 'gh-pages' branch
-                        bat "git checkout -b gh-pages"
-                        
-                        // Push the 'gh-pages' branch to remote repository
-                        bat "git push -u origin gh-pages"
-
-                    }
-                }
+                // Configure Git user name and email
+                bat "git config --global user.email 'prochandru@gmail.com'"
+                bat "git config --global user.name 'ChanDru-Balu'"
+                
+                // Switch to 'gh-pages' branch
+                bat "git checkout -b gh-pages"
+                
+                // Push the 'gh-pages' branch to remote repository
+                bat "git push -u origin gh-pages"
             }
         }
+    }
+}
+
     }
 }
