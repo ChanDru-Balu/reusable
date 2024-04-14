@@ -67,7 +67,7 @@ pipeline{
                     }
 
                     // Copy website files from Docker container to 'gh-pages' directory
-                    bat "docker cp reusable-container:/path/to/website ./gh-pages"
+                    bat "docker cp reusable-container:/usr/share/nginx/html ./gh-pages"
 
                     // Navigate to the 'gh-pages' directory
                     dir('gh-pages') {
