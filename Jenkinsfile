@@ -78,18 +78,25 @@ pipeline{
                         bat "git add ."
 
                         // Configure Git user name and email
-                bat "git config --global user.email 'prochandru@gmail.com'"
-                bat "git config --global user.name 'ChanDru-Balu'"
+                        bat "git config --global user.email 'prochandru@gmail.com'"
+                        bat "git config --global user.name 'ChanDru-Balu'"
 
                         
                         // Commit changes
                         bat 'git commit -m "Deploy to GitHub Pages"'
                         
-                        // Add remote repository
-                        bat "git remote add origin https://github.com/ChanDru-Balu/reusable"
+                        // // Add remote repository
+                        // bat "git remote add origin https://github.com/ChanDru-Balu/reusable"
                         
-                        // Push to the 'gh-pages' branch
-                        bat "git push -u origin master --force"
+                        // // Push to the 'gh-pages' branch
+                        // bat "git push -u origin master --force"
+
+                        // Create and switch to 'gh-pages' branch
+                        bat "git checkout -b gh-pages"
+                        
+                        // Push the 'gh-pages' branch to remote repository
+                        bat "git push -u origin gh-pages"
+
                     }
                 }
             }
