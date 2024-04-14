@@ -80,19 +80,19 @@ pipeline{
                 def currentBranch = bat(script: "git rev-parse --abbrev-ref HEAD", returnStdout: true).trim()
                 echo "Current branch is: ${currentBranch}"
                 // // Add all files
-                // bat "git add ."
+                bat "git add ."
                 
                 // // Commit changes
-                // bat 'git commit -m "Deploy to GitHub Pages"'
+                bat 'git commit -m "Deploy to GitHub Pages"'
 
                 // // Configure Git user name and email
-                // bat "git config --global user.email 'prochandru@gmail.com'"
-                // bat "git config --global user.name 'ChanDru-Balu'"
+                bat "git config --global user.email 'prochandru@gmail.com'"
+                bat "git config --global user.name 'ChanDru-Balu'"
                 
               
                 
                 // // Push the 'gh-pages' branch to remote repository
-                // bat "git push -u origin gh-pages"
+                bat "git push -u origin ${currentBranch}"
             }
         }
     }
