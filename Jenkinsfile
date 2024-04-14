@@ -17,18 +17,18 @@ pipeline{
             }
         }
 
-        // stage('Build Angular Production') {
-        //     steps {
-        //         script {
-        //             // Navigate to Angular project directory
-        //             dir('angular-project') {
-        //                 // Build Angular project for production
-        //                 bat "npm install"
-        //                 bat "npm run build --prod"
-        //             }
-        //         }
-        //     }
-        // }
+        stage('Build Angular Production') {
+            steps {
+                script {
+                    // Navigate to Angular project directory
+                    dir('angular-project') {
+                        // Build Angular project for production
+                        bat "npm install"
+                        bat "npm run build --prod"
+                    }
+                }
+            }
+        }
 
         stage('Build Docker Image'){
             steps{
@@ -53,7 +53,7 @@ pipeline{
                     // sh '/usr/local/bin/docker run -p 8090:80 reusable-image .'
 
             // Run Docker container
-            bat "docker run -p 8090:80 -d --name reusable-container-2 reusable-image"
+            bat "docker run -p 8090:80 -d --name reusable-container-3 reusable-image"
                 }
             }
         }
