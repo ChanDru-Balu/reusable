@@ -80,6 +80,7 @@ pipeline{
                 
                 // Check if there are changes to commit
                 def gitStatus = bat(script: 'git status --porcelain', returnStdout: true).trim()
+                echo gitStatus
                 if (gitStatus) {
                     // Commit changes
                     bat 'git commit -m "Deploy to GitHub Pages"'
