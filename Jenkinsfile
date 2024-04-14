@@ -53,7 +53,7 @@ pipeline{
                     // sh '/usr/local/bin/docker run -p 8090:80 reusable-image .'
 
             // Run Docker container
-            bat "docker run -p 8080:80 -d --name reusable-container reusable-image"
+            bat "docker run -p 8090:80 -d --name reusable-container reusable-image"
                 }
             }
         }
