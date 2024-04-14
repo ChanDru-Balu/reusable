@@ -1,15 +1,18 @@
-pipeline {
+pipeline{
     agent any
-    tools {
+       tools {
+        // Define the Docker tool in the 'tools' section
+        // This assumes 'myDockerTool' is configured in Jenkins
         dockerTool 'MyDockerTool'
     }
     environment {
+        // Define environment variables if needed
         dockerImage = 'reusable-image'
     }
 
-    stages {
-        stage('Clone Repository') {
-            steps {
+    stages{
+        stage('Clone Repository'){
+            steps{
                 git 'https://github.com/ChanDru-Balu/reusable'
             }
         }
@@ -17,7 +20,9 @@ pipeline {
         stage('Build Angular Production') {
             steps {
                 script {
+                    // Navigate to Angular project directory
                     dir('angular-project') {
+                        // Build Angular project for production
                         bat "npm install"
                         bat "npm run build --prod"
                     }
@@ -25,56 +30,33 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
-            steps {
-                script {
+        stage('Build Docker Image'){
+            steps{
+                script{
+                //     sh '/usr/local/bin/docker build -t reusable-image .'
+
+                   // Get the current working directory
                     def currentDir = pwd()
+
+                    // Define the path to the Dockerfile relative to the Jenkinsfile
                     def dockerfilePath = "${currentDir}/Dockerfile"
-                    echo "Current Directory: ${currentDir}"
-                    echo "Dockerfile Path: ${dockerfilePath}"
+
+                    // Build Docker image
                     bat "docker build -t reusable-image -f ${dockerfilePath} ."
-                }
+                } 
             }
         }
     
-        stage('Run Docker Container') {
-            steps {
+        stage('Run Docker Container'){
+            steps{
                 script {
-                    bat "docker run -p 8090:80 -d --name reusable-container reusable-image"
+                    // sh '/usr/local/bin/docker run -p 8090:80 reusable-image .'
+
+            // Run Docker container
+            bat "docker run -p 8090:80 -d --name reusable-container reusable-image"
                 }
             }
         }
 
-        stage('Deploy to GitHub Pages') {
-            steps {
-                script {
-                    if (!fileExists('gh-pages')) {
-                        bat "mkdir gh-pages"
-                    }
-
-                    bat "docker cp reusable-container:/usr/share/nginx/html ./gh-pages"
-
-                    dir('gh-pages') {
-                        bat "git rev-parse --verify gh-pages || git checkout -b gh-pages"
-                        bat "git add ."
-                        echo "Git Status:"
-                        bat "git status --porcelain"
-
-                        def gitStatus = bat(script: 'git status --porcelain', returnStdout: true).trim()
-                        echo "Git Status:"
-                        echo gitStatus
-
-                        if (gitStatus) {
-                            bat 'git commit -m "Deploy to GitHub Pages2"'
-                            bat "git config --global user.email 'prochandru@gmail.com'"
-                            bat "git config --global user.name 'ChanDru-Balu'"
-                            bat "git push -u origin gh-pages"
-                        } else {
-                            echo "No changes to commit."
-                        }
-                    }
-                }
-            }
-        }
     }
 }
